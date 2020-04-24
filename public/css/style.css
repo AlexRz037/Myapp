@@ -1,0 +1,466 @@
+/*  ESTILOS GENERALES  */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+a:hover{
+    text-decoration: none;
+    color: none !important;
+}
+p{
+    margin-bottom: 0;
+}
+i{
+    color: #888;
+}
+/*CONTENIDO DE LA PÁGINA    */
+#app{
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(85px, 85px) auto;
+    grid-template-rows: 55px auto 55px;
+    grid-template-areas: "header header"
+                         "menu contenido"
+                         "reproductor reproductor"
+    ;
+    background: #f9f9f9;
+}
+#app.active{
+    grid-template-columns: minmax(180px, 18%) auto;
+}
+/* MEDIA QUERY APP  */
+@media screen and (max-width:576px){
+    #app{
+        grid-template-rows: 110px 67vh 55px 50px;
+        grid-template-areas:
+        "header header"
+        "contenido contenido"
+        "reproductor reproductor"
+        "menu menu"
+        ;
+    } 
+}
+/* HEADER    */
+.header{
+    grid-area: header;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 20px;
+    grid-template-areas: "logo busqueda iconos";
+}   
+/* HEADER LOGO    */
+.header .contenedor-logo{
+    grid-area: logo;
+    display: flex;
+    align-items: center;
+}
+.header .contenedor-logo .boton-menu{
+    border: none;
+    padding: 10px;
+    background: none;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s ease;
+}
+.header .contenedor-logo .boton-menu:hover{
+    background: #E5E5E5;
+}
+/* HEADER BUSQUEDA      */
+.header .barra-busqueda{
+    grid-area: busqueda;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header .barra-busqueda input{
+    min-width: 60%;
+    padding: 0 15px;
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid #ccc;
+    transition: all .3s ease;
+}
+.header .barra-busqueda button{
+    height: 35px;
+    border: 1px solid #ccc;
+    border-left: none;
+    background: #f8f8f8;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: all .3s ease;
+    color: #444;
+}
+/* HEADER ICONOS       */
+.header .botones-header{
+    grid-area: iconos;
+    display: flex;
+    justify-content: flex-end;
+} 
+.header .botones-header .avatar{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.header .botones-header .avatar img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    vertical-align: top;
+}
+/* MEDIA QUERY HEADER       */
+@media screen and (max-width:576px){
+    .header{
+        grid-gap: 0;
+        grid-template-columns: auto auto;
+        grid-template-rows: 60px 49px;
+        grid-template-areas:
+        "logo iconos"
+        "busqueda busqueda";
+    }
+    .header .barra-busqueda input{
+        width: 100%;
+    }
+    .header .contenedor-logo .boton-menu{
+        display: none;
+    }
+}
+/* SIDEBAR       */
+.SideBar{
+    grid-area: menu;
+    overflow: hidden;
+}
+.SideBar a{
+    display: block;
+    padding: 15px 35px;
+    color: #888;
+    min-width: 800px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all .3s ease;
+}
+.SideBar a:hover{
+    background: #E5E5E5;
+}
+.SideBar p{
+    margin-left: 40px;
+}
+.SideBar .active{
+    background: #E5E5E5;
+    font-weight: bold;
+}
+.SideBar .active i{
+    color: #ff0000;
+}
+/* MEDIA QUERY SIDEBAR    */
+@media screen and (max-width:576px){
+    .SideBar{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .SideBar a{
+        min-width: 0;
+        width: 60px;
+        justify-content: center;
+        align-items: center;
+    }
+    .SideBar p{
+        display: none;
+    }
+    .SideBar .active {
+        border-top: 2px solid #ff0000;
+    }
+}
+@media screen and (max-width:375px){
+    .SideBar a {
+        padding: 15px 30px;
+        width: 23px;
+        height: 50px;
+    }
+}
+/* CONTENIDO     */
+.contenido{
+    grid-area: contenido;
+    background: rgb(245, 245, 245);
+    padding: 40px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+/* MEDIA QUERY REPRODUCTOR    */
+@media screen and (max-width:576px){
+    .contenido{
+        padding: 5px 15px;
+    }
+}
+/* REPRODUCTOR   */
+.reproductor{
+    background: #E7E7E7;
+    grid-area: reproductor;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "informacion controles botones";
+    position: relative;
+    transition: all .3s ease;
+}
+/* REPRODUCTOR INFORMACION    */
+.reproductor .informacion{
+    height: 100%;
+    grid-area: informacion;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+}
+/* REPRODUCTOR INFORMACION IMAGEN    */
+.reproductor .informacion .image{
+    width: 65px;
+    height: 55px;
+    margin-right: 10px;
+}
+.reproductor .informacion .image img{
+    width: 100%;
+    height: 100%;
+}
+/* REPRODUCTOR INFORMACION NOMBRES    */
+.reproductor .informacion .infoSong{
+    width: 100%;
+    height: 100%;
+    padding: 5px 0;
+}
+.reproductor .informacion .nameSong{
+    width: 100%;
+    text-align: left;
+    font-weight: normal;
+}
+.reproductor .informacion .ArtistSong{
+    width: 100%;
+    text-align: left;
+    font-size: 13px;
+    color: #999;
+}
+/* REPRODUCTOR INFORMACION TIME      */
+.reproductor .informacion .timeSong{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+/* REPRODUCTOR CONTROLES      */
+.reproductor .controles{
+    grid-area: controles;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reproductor .controles i{
+    font-size: 25px;
+    cursor: pointer;
+}
+/* REPRODUCTOR BOTONES        */
+.reproductor .botones{
+    grid-area: botones;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+.reproductor .botones .addPlayList{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.reproductor .botones .addPlayList .menuSong,
+.reproductor .botones .addPlayList .Playlist{
+    height: 100%;
+    margin: 0 10px;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+/* REPRODUCTOR PROGRESSBAR    */
+.rep-body{
+    width: 100%;
+    position: absolute;
+    top: -3px;
+}
+.rep-body .reproductors{
+    width: 100%;
+    height: 3px;
+}
+.rep-body .reproductors .reproduction{
+    width: 100%;
+    height: 100%;
+    background: #acacac;
+    cursor: pointer;
+}
+.rep-body .reproductors .reproduction .reproducted{
+    width: 0;
+    height: 100%;
+    background: #ff0000;
+}
+/* MEDIA QUERY REPRODUCTOR    */
+@media screen and (max-width:576px){
+    .reproductor{
+        grid-template-columns: 1fr auto;
+    }
+    /* REPRODUCTOR INFORMACION IMAGE  */
+    .reproductor .informacion .image{
+        width: 60px;
+    }
+    .reproductor .informacion .timeSong,
+    .reproductor .botones,
+    .reproductor .shuffle,
+    .reproductor .botonPrev,
+    .reproductor .botonNext,
+    .reproductor .repeat
+    {
+        display: none;
+    }
+}
+@media screen and (max-width:576px){
+    /* MENU DESPLEGABLE  */
+    .Menulist{
+    background: rgb(255, 255, 255);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    }
+    .Menulist .closeMenu{
+        padding: 20px 40px;
+        font-size: 17px;
+    }
+    .Menulist nav ul{
+        list-style: none;
+    }
+    .Menulist nav ul li{
+        width: 100%;
+        height: 45px;
+        color: #888;
+        border-bottom: 1px solid hsla(0,0%, 81%, 0.466);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+    }
+    /* NUEVO REPRODUCTOR     */
+    .NewReproductor{
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgb(194, 194, 194);
+        z-index: 5;
+    }
+    .NewReproductor .botonClose{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 30px;
+        color: #fff;
+    }
+    #bg img{
+        width: 110%;
+        height: 110%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        filter: blur(20px);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    /* NUEVO REPRODUCTOR INFORMACION   */
+    .NewReproductor .informacion{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 67%;
+        padding: 30px 0;
+    }
+    /* NUEVO REPRODUCTOR INFORMACION IMAGE */
+    .NewReproductor .informacion .image{
+        width: 100%;
+        height: 270px;
+        margin: 0;
+    }
+    .NewReproductor .informacion .image img{
+        width: 100%;
+        height: 100%;
+    }
+    /* NUEVO REPRODUCTOR INFO DE LA CANCION   */
+    .NewReproductor .informacion .infoSong{
+        margin: 33px;
+        text-align: center;
+    }
+    /* NUEVO REPRODUCTOR TIME   */
+    .NewReproductor .informacion .timeSong {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+    }
+    .NewReproductor .informacion .timeSong .space{
+        display: none;
+    }
+    /* NUEVO REPRODUCTOR CONTROLES   */
+    .NewReproductor .controles{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin: 40px 0;
+        font-size: 20px;
+    }
+    /* NUEVO REPRODUCTOR BOTONES */
+    .NewReproductor .addPlayList {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    /* NUEVO REPRODUCTOR PROGRESSBAR  */
+    .NewReproductor .rep-body{
+        position: relative;
+        top: 0;
+    }
+}
