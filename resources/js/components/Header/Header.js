@@ -12,17 +12,20 @@ export default class Header extends Component{
     }
     //MOSTRAR EL MENU
     showMenuList(){
-        if($('#avatar').hasClass('menuactivo')){
-            $('#avatar').removeClass('menuactivo')
+        if($('.avatar').hasClass('menuactivo')){
+            $('.avatar').removeClass('menuactivo')
             this.setState({MenuList:false})
         }else{
-            $('#avatar').addClass('menuactivo')
+            $('.avatar').addClass('menuactivo')
             this.setState({MenuList:true})
         }
     }
     //CERRAR EL MENU
     offMenu(){
-        this.setState({MenuList:false})
+        if($('.avatar').hasClass('menuactivo')){
+            $('.avatar').removeClass('menuactivo')
+            this.setState({MenuList:false})
+        }
     }
     
     render(){
@@ -40,6 +43,9 @@ export default class Header extends Component{
                     <button tuper="submit"><i className="fas fa-search"></i></button>
                 </div>
                 <div className="botones-header">
+                    <div className="botonSearch">
+                        <i className="fas fa-search"></i>
+                    </div>
                     <div className="avatar" onClick={this.showMenuList}>
                         <img src="images/perfil.svg" alt=""/>
                     </div>

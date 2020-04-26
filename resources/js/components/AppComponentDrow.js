@@ -3,11 +3,21 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 import axios from 'axios';
 
+import {BrowserRouter} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
+import {Route} from 'react-router-dom';
+
 import ReactDOM from 'react-dom';
 import Header from './Header/Header';
 import Reproductor from './Reproductor/Reproductor';
 import SideBar from './SideBar/SideBar';
 import NewReproductor from './Reproductor/NewReproductor';
+import Contenido from './Contenido/Contenido';
+import Recomendados from './Recomendados/Recomendados';
+import Descubrir from './Descubrir/Descubrir';
+import Generos from './Generos/Generos';
+import Artistas from './Artistas/Artistas';
+import Playlist from './Playlist/Playlist';
 
 export default class AppComponentDrow extends Component{
     constructor(){
@@ -25,19 +35,27 @@ export default class AppComponentDrow extends Component{
             songPlist: "",
             imgSong: "https://via.placeholder.com/500x281?text=DrowsMusic",
             //PETICIONES A LA API
-
+                //lista de canciones
+                listSong:[],
+                ListSongTemporal: [],
+                //lista de generos
+                listGenero: [],
             //BUSCADOR
             text: "",
             //NUEVO REPRODUCTOR
             newRep: false,
             //LISTA DE LAS CANCIONES A REPRODUCIR
-            listSongsTemporal: "",
+            listSongsTemporal: [],
             //CANCION QUE SE ESTA REPRODUCIENDO
             songUrl: "songs/xwFwine91Jg9ReN1tZUaTE1heYlHC7CrquuNmc0e.mpga",
         }
+        //Peticiones a la api
+        this.getSongs=this.getSongs.bind(this);
         //Nuevo Reproductor
         this.newReproductor=this.newReproductor.bind(this);
         this.offReproductor=this.offReproductor.bind(this);
+        //funcion Reproducir
+        this.playSelectedSong=this.playSelectedSong.bind(this);
         //funcion play-pause
         this.clickBtnPlay=this.clickBtnPlay.bind(this);
         //tiempo de duracion de la cancion
@@ -47,10 +65,49 @@ export default class AppComponentDrow extends Component{
         this.timeupdate=this.timeupdate.bind(this);
         //final de la cancion
         this.scheduleSong=this.scheduleSong.bind(this);
+        //actualizar la lista de reproduccion
+        this.updateList=this.updateList.bind(this);
 
     }
-    componentDidMount(){
+    async componentDidMount(){
         this.toggleMenu();
+        //peticion de canciones a la Api
+        this.getSongs();
+        //peticion de generos a la Api
+        this.getGenero();
+    }
+    //PETICION API
+    //PETICION DE CANCIONES
+    async getSongs(){
+        const asset = 'http://localhost:8080/DrowsFinalF/public/';
+        const getSongs = await axios.get('http://localhost:8080/DrowsFinalF/public/api/getSongs');
+        getSongs.data.forEach((song)=>{song.url=asset+song.url})
+        getSongs.data.forEach((song)=>song.cover_art_url=asset+song.cover_art_url)
+        this.setState({
+            listSong:getSongs.data,
+            ListSongTemporal:getSongs.data
+        });
+    }
+    //PETICION DE GENEROS
+    async getGenero(){
+        const getGeneros = await axios.get('http://localhost:8080/DrowsFinalF/public/api/getGeneros');
+        this.setState({
+            listGenero:getGeneros.data
+        })
+    }
+    //   REPRODUCIR LA CANCNION SELECCIONADA
+    playSelectedSong(song){
+        this.setState({
+            song: song,
+            songUrl: song.url,
+            iconBtn: 'icon-pause-1',
+            imgArtist: song.cover_art_url,
+            nameSong: song.name,
+            nameArtist: song.artist
+        }
+        , ()=>{
+            this.audioRef.current.play();
+        });
     }
     //   BOTON PLAY - PAUSE
     clickBtnPlay(){
@@ -61,6 +118,10 @@ export default class AppComponentDrow extends Component{
             this.setState({iconBtn: 'icon-play-1'})
             this.audioRef.current.pause();
         }
+    }
+    //ACTUALIZAR LA LISTA DE LAS CANCIONES
+    updateList(arr){
+        this.setState({listSongsTemporal:arr})
     }
     //TIEMPO DE LA CANCION
     onloadeddata(){
@@ -178,16 +239,79 @@ export default class AppComponentDrow extends Component{
     render(){
         const {newRep} = this.state
         return(
-            <React.Fragment>
+            <BrowserRouter>
                 <div className="header">
                     <Header />
                 </div>
                 <div className="SideBar">
                     <SideBar />
                 </div>
-                <div className="contenido">
-
-                </div>
+                <Switch>
+                    <Route exact path="/DrowsFinalF/public/PlayList">
+                        <main className="contenido">
+                            <Playlist 
+                                
+                            />
+                        </main>
+                    </Route>
+                    <Route exact path="/DrowsFinalF/public/Artistas">
+                        <main className="contenido">
+                            <Artistas 
+                                //lista de canciones 
+                                listSong={this.state.listSong}
+                            />
+                        </main>
+                    </Route>
+                    <Route exact path="/DrowsFinalF/public/Generos">
+                        <main className="contenido">
+                            <Generos 
+                                //lista de generos
+                                listGenero={this.state.listGenero}
+                            />
+                        </main>
+                    </Route>
+                    <Route exact path="/DrowsFinalF/public/Descubrir">
+                        <main className="contenido">
+                            <Descubrir 
+                                 //funciones
+                                 sonPlayselected={this.playSelectedSong} //funcion play 
+                                 update={this.updateList} // funcion actualizar lista
+                                 //lista de canciones 
+                                 listSong={this.state.listSong}
+                                 //lista de reproduccion
+                                 ListSongTemporal={this.state.ListSongTemporal}
+                            />
+                        </main>
+                    </Route>
+                    <Route exact path="/DrowsFinalF/public/Recomendados">
+                        <main className="contenido">
+                            <Recomendados 
+                                //funciones
+                                sonPlayselected={this.playSelectedSong} //funcion play 
+                                update={this.updateList} // funcion actualizar lista
+                                //lista de canciones 
+                                listSong={this.state.listSong}
+                                //lista de reproduccion
+                                ListSongTemporal={this.state.ListSongTemporal}
+                            />
+                        </main>
+                    </Route>
+                    <Route exact path="/DrowsFinalF/public/">
+                        <main className="contenido">
+                            <Contenido
+                                //funciones
+                                    sonPlayselected={this.playSelectedSong} //funcion play 
+                                    update={this.updateList} // funcion actualizar lista
+                                //lista de canciones 
+                                listSong={this.state.listSong}
+                                    //lista de reproduccion
+                                    ListSongTemporal={this.state.ListSongTemporal}
+                                //lista de generos
+                                listGenero={this.state.listGenero}
+                            />
+                        </main>
+                    </Route>
+                </Switch>
                 <div className="reproductor">
                     <Reproductor
                         //AUDIO
@@ -256,7 +380,7 @@ export default class AppComponentDrow extends Component{
                     onTimeUpdate={this.timeupdate}
                     onEnded={()=>this.scheduleSong(song, listSongsTemporal)}
                 ></audio>
-            </React.Fragment>
+            </BrowserRouter>
         )
     }
 }

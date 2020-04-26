@@ -40,14 +40,14 @@ i{
 /* MEDIA QUERY APP  */
 @media screen and (max-width:576px){
     #app{
-        grid-template-rows: 110px 67vh 55px 50px;
+        grid-template-rows: 60px 74.5vh 55px 50px;
         grid-template-areas:
         "header header"
         "contenido contenido"
         "reproductor reproductor"
         "menu menu"
         ;
-    } 
+    }
 }
 /* HEADER    */
 .header{
@@ -126,6 +126,9 @@ i{
     border-radius: 100%;
     vertical-align: top;
 }
+.header .botones-header .botonSearch{
+    display: none;
+}
 /* MEDIA QUERY HEADER       */
 @media screen and (max-width:576px){
     .header{
@@ -136,11 +139,21 @@ i{
         "logo iconos"
         "busqueda busqueda";
     }
-    .header .barra-busqueda input{
-        width: 100%;
-    }
-    .header .contenedor-logo .boton-menu{
+    .header .contenedor-logo .boton-menu,
+    .header .barra-busqueda
+    {
         display: none;
+    }
+    .header .botones-header .botonSearch{
+        display: block;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 5px;
+        font-size: 17px;
     }
 }
 /* SIDEBAR       */
@@ -203,13 +216,196 @@ i{
     grid-area: contenido;
     background: rgb(245, 245, 245);
     padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
     overflow-x: hidden;
     overflow-y: auto;
+}
+/*CONTENT*/
+.content-options{
+    width: 100%;
+}
+.titulo{
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.titulo h3{
+    font-size: 18px;
+}
+/*CONTENT SLIDERS*/
+.content-sliders{
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+}
+/*CONTENT SLIDER*/
+.contet-slider,
+.contet-sliderN,
+.contet-sliderD,
+.contet-sliderG,
+.contet-sliderA
+{
+    overflow: hidden;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+}
+.contet-slider .carousel,
+.contet-sliderN .carousel,
+.contet-sliderD .carousel,
+.contet-sliderG .carousel,
+.contet-sliderA .carousel
+{
+    display: grid;
+    grid-gap: 40px 20px;
+    grid-template-columns: repeat(6, 1fr);
+    margin-bottom: 30px;
+}
+.contet-slider .button-left,
+.contet-sliderN .button-left,
+.contet-sliderD .button-left,
+.contet-sliderG .button-left,
+.contet-sliderA .button-left
+{
+    position: absolute;
+    top: calc(50% - 10%);
+    left: 0;
+}
+.contet-slider .button-rigth,
+.contet-sliderN .button-rigth,
+.contet-sliderD .button-rigth,
+.contet-sliderG .button-rigth,
+.contet-sliderA .button-rigth
+{
+    position: absolute;
+    right: 0;
+}
+/* BOTONES SLIDER*/
+.button-left,
+.button-rigth
+{
+    display: none;
+}
+.button-left{
+    left: 0;
+    top: 30%;
+}
+.button-rigth{
+    right: 0;
+    top: 30%;
+}
+/* CARD SLIDER */
+.card-slider{
+    min-width: 13.5%;
+    height: 160px;
+    cursor: pointer;
+}
+.card-slider img{
+    width: 100%;
+    height: 130px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 1px 1px 3px rgb(131, 131, 131);
+}
+/*TITULO DE LA CANCION*/
+.content-sliders .card-slider .titulo-Song{
+    margin-top: 5px;
+}
+.content-sliders .card-slider .titulo-Song h6{
+    color: #888;
+}
+/* GRID TEMPLATE */
+.contenido .grid-template{
+    padding-right: 15px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px 10px;
+}
+.contenido .grid-template .card-template{
+    height: 150px;
+}
+.contenido .grid-template .card-template img{
+    width: 100%;
+    height: 115px;
+}
+.contenido .grid-template .card-template .nameSong p{
+    margin-top: 5px;
+    font-size: 11px;
+}
+/* MEDIA QUERY CONTENT  */
+@media screen and (max-width:576px){
+    .contenido{
+        display: flex;
+        flex-direction: column;
+    }
+    .content-sliders .card-slider .titulo-Song h6{
+        font-size: 11px;
+    }
+    .contet-slider .carousel,
+    .contet-sliderN .carousel,
+    .contet-sliderD .carousel,
+    .contet-sliderG .carousel,
+    .contet-sliderA .carousel
+    {
+        width: 300%;
+        height: 150px;
+        display: flex;
+        justify-content: flex-start;
+    }
+    /* CARD SLIDER */
+    .card-slider{
+        min-width: 0;
+        width: 150px;
+        height: 160px;
+        margin-right: 8px;
+    }
+    .card-slider img{
+        width: 100%;
+        height: 130px;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 1px 1px 3px rgb(131, 131, 131);
+    }
+    /* BOTONES SLIDER*/
+    .button-left,
+    .button-rigth
+    {
+        display: block;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        z-index: 4;
+    } 
+    /*  CONTENT PLAYLIST */
+    .content-Playlist {
+        padding-right: 15px;
+    }
+    .content-Playlist ul {
+        width: 100%;
+        list-style: none;
+    }
+    .content-Playlist ul li {
+        width: 100%;
+        height: 45px;
+        padding: 5px;
+        border-bottom: 1px solid rgb(214, 214, 214);
+        display: grid;
+        align-items: center;
+        grid-template-columns: auto 1fr auto;
+    }
+    .content-Playlist ul li .image{
+        width: 35px;
+        height: 35px;
+        background: #444;
+        margin-right: 10px;
+    }
 }
 /* MEDIA QUERY REPRODUCTOR    */
 @media screen and (max-width:576px){
     .contenido{
-        padding: 5px 15px;
+        padding: 15px 15px;
+        padding-right: 0;
     }
 }
 /* REPRODUCTOR   */
@@ -340,6 +536,9 @@ i{
     {
         display: none;
     }
+    .reproductor .informacion .ArtistSong p{
+        font-size: 10px;
+    }
 }
 @media screen and (max-width:576px){
     /* MENU DESPLEGABLE  */
@@ -372,6 +571,9 @@ i{
         padding: 0 40px;
     }
     /* NUEVO REPRODUCTOR     */
+    .NewReproductor i{
+        color: #fff;
+    }
     .NewReproductor{
         display: flex;
         flex-direction: column;
@@ -418,6 +620,11 @@ i{
         width: 100%;
         height: 67%;
         padding: 30px 0;
+        color: #fff;
+    }
+    .NewReproductor .informacion .ArtistSong{
+        font-size: 13px;
+        color: #fff;
     }
     /* NUEVO REPRODUCTOR INFORMACION IMAGE */
     .NewReproductor .informacion .image{
@@ -440,6 +647,7 @@ i{
         display: flex;
         justify-content: space-between;
         font-size: 10px;
+        color: #fff;
     }
     .NewReproductor .informacion .timeSong .space{
         display: none;
@@ -449,8 +657,12 @@ i{
         width: 100%;
         display: flex;
         justify-content: space-between;
-        margin: 40px 0;
+        margin: 30px 0;
         font-size: 20px;
+        align-items: center;
+    }
+    .NewReproductor .controles .botonPlay i{
+        font-size: 25px;
     }
     /* NUEVO REPRODUCTOR BOTONES */
     .NewReproductor .addPlayList {

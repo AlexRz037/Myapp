@@ -1,0 +1,11 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Artista extends Model
+{
+    protected $table = 'artista';
+    protected $fillable = ['id', 'nombre', 'imagen'];
+}
