@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Musica;
 use App\Genero;
+use App\Artista;
 
 class ApiController extends Controller
 {
@@ -17,5 +18,17 @@ class ApiController extends Controller
     public function getGeneros(){
         $genero = Genero::all();
         return response()->json($genero);
+    }
+    public function detalle($id){
+        $genero = Genero::findOrFail($id);
+        return  response()->json($genero);
+    }
+    public function getArtist(){
+        $artistas = Artista::all();
+        return response()->json($artistas);
+    }
+    public function detalleArtist($id){
+        $artistas = Artista::findOrFail($id);
+        return  response()->json($artistas);
     }
 }

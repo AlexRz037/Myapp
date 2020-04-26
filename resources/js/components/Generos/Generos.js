@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import {Link} from 'react-router-dom';
+
 export default class Generos extends Component{
     constructor(props){
         super(props)
@@ -13,14 +15,14 @@ export default class Generos extends Component{
                 <div className="grid-template">
                     {this.props.listGenero.map((genero, index)=>{
                         return(
-                            <React.Fragment key={index}>
+                            <Link to={`/DrowsFinalF/public/Generos/${genero.id}`} key={index}>
                                 <div className="card-template">
                                     <img src={genero.image} alt=""/>
                                     <div className="nameSong">
                                         <p>{genero.nombre}</p>
                                     </div>
                                 </div>
-                            </React.Fragment>
+                            </Link>
                         )
                     })}
                 </div>

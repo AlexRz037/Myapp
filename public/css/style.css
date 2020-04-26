@@ -48,6 +48,9 @@ i{
         "menu menu"
         ;
     }
+    hr{
+        display: none;
+    }
 }
 /* HEADER    */
 .header{
@@ -332,6 +335,41 @@ i{
 .contenido .grid-template .card-template .nameSong p{
     margin-top: 5px;
     font-size: 11px;
+}
+/*  DETALLES DE CADA ELEMENTO    */
+.templateDetails{
+    grid-area: contenido;
+}
+.templateDetails .contenido{
+    padding: 0;
+}
+.templateDetails .contenido .grid-template{
+    padding: 15px;
+}
+.templateDetails .contenido .template-detail{
+    height: 75.5vh;
+}
+.templateDetails .contenido .template-detail .template-portada{
+    width: 100%;
+    height: 270px;
+    position: relative;
+}
+.templateDetails .contenido .template-detail .template-portada img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+.templateDetails .contenido .template-detail .template-portada h2{
+    color: #fff;
+    z-index: 4;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
 }
 /* MEDIA QUERY CONTENT  */
 @media screen and (max-width:576px){

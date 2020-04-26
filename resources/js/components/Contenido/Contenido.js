@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import $ from 'jquery';
+import {Link} from 'react-router-dom';
 
 export default class Contenido extends Component{
     constructor(props){
@@ -248,14 +249,14 @@ export default class Contenido extends Component{
                             <div className="carousel">
                             {currentPostGenre.map((genero, index)=>{
                                 return(
-                                <React.Fragment key={index}>
+                                <Link to={`/DrowsFinalF/public/Generos/${genero.id}`} key={index}>
                                     <div className="card-slider">
                                         <img src={genero.image} alt=""/>
                                         <div className="titulo-Song">
                                             <h6>{genero.nombre}</h6>
                                         </div>
                                     </div>
-                                </React.Fragment>
+                                </Link>
                                 )
                             })}
                             </div>
@@ -275,19 +276,16 @@ export default class Contenido extends Component{
                             </div>
                         <div className="contet-sliderA">
                             <div className="carousel">
-                            {currentPost.map((song, index)=>{
+                            {this.props.listArtistas.map((song, index)=>{
                                 return(
-                                <React.Fragment key={index}>
-                                    <div 
-                                    className={"card-slider" + " " + this.props.ListSongTemporal[index].selected}
-                                    onClick={()=> this.selectSong(index)}
-                                    >
-                                        <img src={song.cover_art_url} alt=""/>
+                                <Link to={`/DrowsFinalF/public/Artistas/${song.id}`} key={index}>
+                                    <div className={"card-slider"}>
+                                        <img src={song.imagen} alt=""/>
                                         <div className="titulo-Song">
-                                            <h6>{song.name}</h6>
+                                            <h6>{song.nombre}</h6>
                                         </div>
                                     </div>
-                                </React.Fragment>
+                                </Link>
                                 )
                             })}
                             </div>

@@ -18,6 +18,8 @@ import Descubrir from './Descubrir/Descubrir';
 import Generos from './Generos/Generos';
 import Artistas from './Artistas/Artistas';
 import Playlist from './Playlist/Playlist';
+import GenerosDetail from './Generos/GenerosDetail';
+import ArtistasDetail from './Artistas/ArtistasDetail';
 
 export default class AppComponentDrow extends Component{
     constructor(){
@@ -40,6 +42,8 @@ export default class AppComponentDrow extends Component{
                 ListSongTemporal: [],
                 //lista de generos
                 listGenero: [],
+                //lista de artistas
+                listArtistas: [],
             //BUSCADOR
             text: "",
             //NUEVO REPRODUCTOR
@@ -75,6 +79,8 @@ export default class AppComponentDrow extends Component{
         this.getSongs();
         //peticion de generos a la Api
         this.getGenero();
+        //peticion de artistas a la Api
+        this.getArtistas();
     }
     //PETICION API
     //PETICION DE CANCIONES
@@ -94,6 +100,11 @@ export default class AppComponentDrow extends Component{
         this.setState({
             listGenero:getGeneros.data
         })
+    }
+    //PETICION DE ARTISTAS
+    async getArtistas(){
+        const getArtista = await axios.get('http://localhost:8080/DrowsFinalF/public/api/getArtist');
+        this.setState({listArtistas:getArtista.data})
     }
     //   REPRODUCIR LA CANCNION SELECCIONADA
     playSelectedSong(song){
@@ -250,10 +261,21 @@ export default class AppComponentDrow extends Component{
                     <Route exact path="/DrowsFinalF/public/PlayList">
                         <main className="contenido">
                             <Playlist 
-                                
+
                             />
                         </main>
                     </Route>
+                    <Route exact path = "/DrowsFinalF/public/Artistas:id" render = {(matchProps)=>
+                        <main className="templateDetails">
+                            <div className="contenido">
+                                <ArtistasDetail 
+                                    {...matchProps}
+                                    {...this.props}
+                                    handleMatch={this.handleMatch} 
+                                />
+                            </div>
+                        </main>
+                    }/>
                     <Route exact path="/DrowsFinalF/public/Artistas">
                         <main className="contenido">
                             <Artistas 
@@ -262,6 +284,17 @@ export default class AppComponentDrow extends Component{
                             />
                         </main>
                     </Route>
+                    <Route exact path = "/DrowsFinalF/public/Generos/:id" render = {(matchProps)=>
+                        <main className="templateDetails">
+                            <div className="contenido">
+                                <GenerosDetail 
+                                   {...matchProps}
+                                   {...this.props}
+                                   handleMatch={this.handleMatch} 
+                                />
+                            </div>
+                        </main>
+                    }/>
                     <Route exact path="/DrowsFinalF/public/Generos">
                         <main className="contenido">
                             <Generos 
@@ -308,6 +341,8 @@ export default class AppComponentDrow extends Component{
                                     ListSongTemporal={this.state.ListSongTemporal}
                                 //lista de generos
                                 listGenero={this.state.listGenero}
+                                //lista de artistas
+                                listArtistas={this.state.listArtistas}
                             />
                         </main>
                     </Route>
